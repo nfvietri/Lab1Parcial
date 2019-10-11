@@ -18,6 +18,7 @@
 #define QTY_PEDIDOS 1000
 
 void test(struct sClientes p[], int cantidad);
+void test2(struct sPedidos p[], int cantidad);
 
 int main(void) {
 
@@ -30,6 +31,8 @@ int main(void) {
 	int respuesta;
 
 	initLugarLibreClientes(aClientes,QTY_CLIENTES);
+	initLugarLibrePedidos(aPedidos, QTY_PEDIDOS);
+	//DATOS YA CARGADOS PARA TESTEAR
 	test(aClientes,QTY_CLIENTES);
 
 
@@ -99,7 +102,7 @@ int main(void) {
 
 		case 5: imprimirArrayPedidos(aPedidos,QTY_PEDIDOS);
 				getInt(&bPedido.idPedido,"Ingrese el id del pedido:\n","Error",-1,1001,3);
-				if(buscarPedidoPorId(aPedidos,QTY_PEDIDOS,bPedido.idPedido))
+				if(buscarPedidoPorId(aPedidos,QTY_PEDIDOS,bPedido.idPedido) != -1)
 				{
 					printf("Pedido seleccionado: Id - %d\n", bPedido.idPedido);
 				} else {
@@ -112,27 +115,25 @@ int main(void) {
 				printf("Residuo procesado!\n");
 				break;
 
-		case 7: imprimirPedidosPendientes(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES);
+		case 6: imprimirArrayClientes(aClientes,QTY_CLIENTES);
 				break;
 
-		case 8: imprimirPedidosProcesados(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES);
+		case 7: printf("Pedidos pendientes: \n");
+				imprimirPedidosPendientes(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES);
+				break;
+
+		case 8: printf("Pedidos procesados: \n");
+				imprimirPedidosProcesados(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES);
 				break;
 		}
 
-
-
-
-
 	} while (opcion != 20);
-
 
 
 	printf("CLIENTES\n");
 	imprimirArrayClientes(aClientes,QTY_CLIENTES);
 	printf("PEDIDOS\n");
 	imprimirArrayPedidos(aPedidos,QTY_PEDIDOS);
-
-
 
 
 	return EXIT_SUCCESS;
@@ -157,3 +158,5 @@ void test(struct sClientes p[], int cantidad)
 	}
 
 }
+
+

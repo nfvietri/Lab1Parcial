@@ -31,5 +31,4 @@ int buscarClientePorId(struct sClientes *aArray, int cantidad,int id);
 
 int bajaClientePorId(struct sClientes *aArray, int cantidad,int id);
 
-
 #endif

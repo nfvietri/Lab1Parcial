@@ -28,9 +28,9 @@ int initLugarLibreClientes(struct sClientes *aArray, int cantidad){
 }
 
 int imprimirArrayClientes(struct sClientes *aClientes, int cantidad){
+
 	int i;
 	int retorno = -1;
-
 
 
 	if(aClientes != NULL && cantidad>0)
@@ -41,8 +41,6 @@ int imprimirArrayClientes(struct sClientes *aClientes, int cantidad){
 			if(aClientes[i].status != 0)
 			{
 
-
-
 				printf("Id: %d // Status: %d // Empresa: %s // Cuit: %s // Direccion: %s // Localidad: %s\n",
 									aClientes[i].idCliente,
 									aClientes[i].status,
@@ -51,9 +49,6 @@ int imprimirArrayClientes(struct sClientes *aClientes, int cantidad){
 									aClientes[i].direccion,
 									aClientes[i].localidad);
 			}
-
-
-
 
 		}
 	}
@@ -170,5 +165,4 @@ int bajaClientePorId(struct sClientes *aArray, int cantidad,int id)
 	return retorno;
 }
 
-int cantPedidosPendientesPorId(int id, struct sPedidos *aArray, int cantPedidos);
 
