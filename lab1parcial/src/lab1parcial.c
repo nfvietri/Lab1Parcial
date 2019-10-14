@@ -115,7 +115,7 @@ int main(void) {
 				printf("Residuo procesado!\n");
 				break;
 
-		case 6: imprimirArrayClientes(aClientes,QTY_CLIENTES);
+		case 6: imprimirClientesConCantidadPendientes(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES);
 				break;
 
 		case 7: printf("Pedidos pendientes: \n");

@@ -196,3 +196,70 @@ int imprimirPedidosProcesados(struct sPedidos *aArray,int cantidadPedidos, struc
 
 	return retorno;
 }
+
+int cantidadPedidosPendientes(struct sPedidos *aArray, int cantidad, int id)
+{
+
+	int retorno = -1;
+	int i;
+	int contador = 0;
+
+	if(aArray != NULL && cantidad > 0)
+	{
+		for(i=0;i<cantidad;i++){
+
+			if(aArray[i].idCliente == id)
+					{
+						if(strncmp(aArray[i].estado, "Pendiente", 50) == 0)
+						{
+							contador++;
+						}
+
+					}
+
+		}
+
+
+
+	retorno = contador;
+
+	}
+
+	return retorno;
+
+}
+
+int imprimirClientesConCantidadPendientes(struct sPedidos *aArray, int cantPedidos, struct sClientes *arrayClientes, int cantClientes)
+{
+	int retorno = -1;
+	int i;
+	int bufferCantidad;
+
+	if((aArray != NULL && cantPedidos > 0) && (arrayClientes != NULL && cantClientes > 0))
+	{
+		retorno = 0;
+		for(i=0;i<cantClientes;i++)
+		{
+			bufferCantidad = cantidadPedidosPendientes(aArray,cantPedidos,arrayClientes[i].idCliente);
+
+			if(arrayClientes[i].status != 0)
+			{
+
+				printf("Id: %d // Nombre: %s // Cuit: %s // Direccion: %s // Localidad: %s // Cantidad pedidos pendientes: %d\n",
+						arrayClientes[i].idCliente,
+						arrayClientes[i].nombreEmpresa,
+						arrayClientes[i].cuit,
+						arrayClientes[i].direccion,
+						arrayClientes[i].localidad,
+						bufferCantidad);
+			}
+
+
+		}
+	}
+
+
+
+
+	return retorno;
+}

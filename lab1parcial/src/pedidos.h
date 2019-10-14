@@ -37,4 +37,8 @@ int imprimirPedidosPendientes(struct sPedidos *aArray, int cantidadPedidos, stru
 
 int imprimirPedidosProcesados(struct sPedidos *aArray,int cantidadPedidos, struct sClientes *arrayClientes, int cantidadClientes);
 
+int cantidadPedidosPendientes(struct sPedidos *aArray, int cantidad, int id);
+
+int imprimirClientesConCantidadPendientes(struct sPedidos *aArray, int cantPedidos, struct sClientes *arrayClientes, int cantClientes);
+
 #endif
