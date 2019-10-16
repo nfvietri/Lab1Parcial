@@ -177,12 +177,14 @@ int imprimirPedidosProcesados(struct sPedidos *aArray,int cantidadPedidos, struc
 
 	if((aArray != NULL && cantidadPedidos > 0) && (arrayClientes != NULL && cantidadClientes > 0))
 		{
-			retorno = 0;
+
 
 			for(i=0;i<cantidadPedidos;i++)
 			{
 				if(strncmp(aArray[i].estado, "Completado", 50) == 0)
 				{
+
+					retorno = 0;
 
 					printf("Id Pedido: %d // Estado: %s // Cuit cliente: %s // Direccion: %s // Cantidad kilos: %d\n",
 							aArray[i].idPedido,

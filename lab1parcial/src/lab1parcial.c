@@ -120,11 +120,15 @@ int main(void) {
 				break;
 
 		case 7: printf("Pedidos pendientes: \n");
-				imprimirPedidosPendientes(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES);
+				if(imprimirPedidosPendientes(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES) == -1){
+					printf("No existen pedidos pendientes\n");
+				}
 				break;
 
 		case 8: printf("Pedidos procesados: \n");
-				imprimirPedidosProcesados(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES);
+				if(imprimirPedidosProcesados(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES) == -1){
+					printf("No existen pedidos procesados\n");
+				}
 				break;
 		}
 
@@ -171,7 +175,7 @@ void test2(struct sPedidos p[], int cantidad)
 		bPedido.idCliente = aIdCliente[i];
 		bPedido.cantidadKilos = aKilos[i];
 
-	altaPedidoPorId(p, QTY_PEDIDOS, bPedido);
+		altaPedidoPorId(p, QTY_PEDIDOS, bPedido);
 
 	}
 
