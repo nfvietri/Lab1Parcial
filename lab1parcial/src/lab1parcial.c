@@ -32,9 +32,10 @@ int main(void) {
 
 	initLugarLibreClientes(aClientes,QTY_CLIENTES);
 	initLugarLibrePedidos(aPedidos, QTY_PEDIDOS);
-	//DATOS YA CARGADOS PARA TESTEAR
-	test(aClientes,QTY_CLIENTES);
 
+	//CARGA DE DATOS RANDOM PARA TESTEO
+	test(aClientes,QTY_CLIENTES);
+	test2(aPedidos,QTY_PEDIDOS);
 
 	do{
 
@@ -159,4 +160,20 @@ void test(struct sClientes p[], int cantidad)
 
 }
 
+void test2(struct sPedidos p[], int cantidad)
+{
+	int aIdCliente[]={0,1,2,3,4};
+	int aKilos[]={100,200,300,400,500};
+	struct sPedidos bPedido;
+	int i;
+	for(i=0;i<5;i++){
+
+		bPedido.idCliente = aIdCliente[i];
+		bPedido.cantidadKilos = aKilos[i];
+
+	altaPedidoPorId(p, QTY_PEDIDOS, bPedido);
+
+	}
+
+}
 
