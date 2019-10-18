@@ -41,4 +41,10 @@ int cantidadPedidosPendientes(struct sPedidos *aArray, int cantidad, int id);
 
 int imprimirClientesConCantidadPendientes(struct sPedidos *aArray, int cantPedidos, struct sClientes *arrayClientes, int cantClientes);
 
+int cantidadPedidosCompletados(struct sPedidos *aArray, int cantidad, int id);
+
+int cantidadPedidosPorCliente(struct sPedidos *aArray, int cantidad, int id);
+
+int cantidadKilosPorCliente(struct sPedidos *aArray, int cantidad, int id);
+
 #endif

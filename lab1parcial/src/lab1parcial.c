@@ -14,6 +14,7 @@
 #include "clientes.h"
 #include "pedidos.h"
 #include "utn.h"
+#include "informes.h"
 #define QTY_CLIENTES 100
 #define QTY_PEDIDOS 1000
 
@@ -48,6 +49,7 @@ int main(void) {
 			   "6-Imprimir Clientes\n"
 			   "7-Imprimir pedidos pendientes\n"
 			   "8-Imprimir pedidos procesados\n"
+			   "9-Informes\n"
 			   "20-Salir\n");
 
 		getInt(&opcion,"Ingrese una opción:\n","Error",0,20,3);
@@ -130,6 +132,15 @@ int main(void) {
 					printf("No existen pedidos procesados\n");
 				}
 				break;
+
+		case 9: printf("Informes:\n");
+				clienteConMasPedidosPendientes(aPedidos,QTY_PEDIDOS,aClientes);
+				clienteConMasPedidosCompletados(aPedidos,QTY_PEDIDOS,aClientes);
+				clienteConMasPedidos(aPedidos,QTY_PEDIDOS,aClientes);
+				clienteQueRecicloMasKilos(aPedidos,QTY_PEDIDOS,aClientes);
+				clienteQueRecicloMenosKilos(aPedidos,QTY_PEDIDOS,aClientes);
+				clientesQueReciclaronMasDe1000(aPedidos,QTY_PEDIDOS,aClientes);
+				break;
 		}
 
 	} while (opcion != 20);
@@ -166,8 +177,8 @@ void test(struct sClientes p[], int cantidad)
 
 void test2(struct sPedidos p[], int cantidad)
 {
-	int aIdCliente[]={0,1,2,3,4};
-	int aKilos[]={100,200,300,400,500};
+	int aIdCliente[]={3,1,2,3,4};
+	int aKilos[]={100,200,300,2000,500};
 	struct sPedidos bPedido;
 	int i;
 	for(i=0;i<5;i++){

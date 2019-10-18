@@ -210,25 +210,43 @@ int cantidadPedidosPendientes(struct sPedidos *aArray, int cantidad, int id)
 	{
 		for(i=0;i<cantidad;i++){
 
-			if(aArray[i].idCliente == id)
+			if(aArray[i].idCliente == id && aArray[i].status != 0)
 					{
 						if(strncmp(aArray[i].estado, "Pendiente", 50) == 0)
 						{
 							contador++;
 						}
-
 					}
-
 		}
 
-
-
 	retorno = contador;
-
 	}
-
 	return retorno;
+}
 
+int cantidadPedidosCompletados(struct sPedidos *aArray, int cantidad, int id)
+{
+
+	int retorno = -1;
+	int i;
+	int contador = 0;
+
+	if(aArray != NULL && cantidad > 0)
+	{
+		for(i=0;i<cantidad;i++){
+
+			if(aArray[i].idCliente == id && aArray[i].status != 0)
+			{
+				if(strncmp(aArray[i].estado, "Completado", 50) == 0)
+				{
+					contador++;
+				}
+			}
+
+		}
+			retorno = contador;
+	}
+	return retorno;
 }
 
 int imprimirClientesConCantidadPendientes(struct sPedidos *aArray, int cantPedidos, struct sClientes *arrayClientes, int cantClientes)
@@ -263,5 +281,50 @@ int imprimirClientesConCantidadPendientes(struct sPedidos *aArray, int cantPedid
 
 
 
+	return retorno;
+}
+
+int cantidadPedidosPorCliente(struct sPedidos *aArray, int cantidad, int id)
+{
+	int retorno = -1;
+	int i;
+	int contador = 0;
+
+	if(aArray != NULL && cantidad > 0)
+	{
+		retorno = 0;
+
+		for(i=0;i<cantidad;i++)
+		{
+			if(aArray[i].idCliente == id && aArray[i].status != 0)
+			{
+				contador++;
+			}
+		}
+	}
+
+	retorno = contador;
+
+	return retorno;
+}
+
+int cantidadKilosPorCliente(struct sPedidos *aArray, int cantidad, int id)
+{
+	int retorno = -1;
+	int i;
+	int cantidadKilos = 0;
+
+	if(aArray != NULL && cantidad > 0)
+	{
+		retorno = 0;
+		for(i=0;i<cantidad;i++)
+		{
+			if(aArray[i].idCliente == id && aArray[i].status != 0)
+			{
+				cantidadKilos = cantidadKilos + aArray[i].cantidadKilos;
+			}
+		}
+	}
+	retorno = cantidadKilos;
 	return retorno;
 }

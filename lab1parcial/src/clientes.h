@@ -14,6 +14,8 @@ struct sClientes {
 	char cuit[50];
 	char direccion[50];
 	char localidad[50];
+	int cantidadPedidos;
+
 
 };
 
