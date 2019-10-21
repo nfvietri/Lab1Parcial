@@ -45,6 +45,11 @@ int cantidadPedidosCompletados(struct sPedidos *aArray, int cantidad, int id);
 
 int cantidadPedidosPorCliente(struct sPedidos *aArray, int cantidad, int id);
 
-int cantidadKilosPorCliente(struct sPedidos *aArray, int cantidad, int id);
+int cantidadKilosRecicladosPorCliente(struct sPedidos *aArray, int cantidad, int id);
+
+int totalKilosReciclados(struct sPedidos *aArray, int cantidad);
+
+int totalKilosPolipropileno(struct sPedidos *aArray, int cantidad);
+
 
 #endif

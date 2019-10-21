@@ -69,11 +69,8 @@ int buscarLugarLibreClientes(struct sClientes *aArray, int cantidad)
 				index = i;
 				break;
 			}
-
 		}
-
 	}
-
 	return index;
 }
 
@@ -90,7 +87,6 @@ int altaClientePorId(struct sClientes *aArray, int cantidad,struct sClientes cli
 		aArray[index].idCliente = generarId();
 		retorno = 0;
 	}
-
 	return retorno;
 }
 
@@ -109,7 +105,6 @@ int modificarClientePorId(struct sClientes *aArray, int cantidad,struct sCliente
 			break;
 		}
 	}
-
 	return retorno;
 }
 
@@ -129,12 +124,9 @@ int buscarClientePorId(struct sClientes *aArray, int cantidad,int id)
 					retorno = i;
 					break;
 				}
-
 			}
-
 		}
 	}
-
 	return retorno;
 }
 
@@ -158,11 +150,29 @@ int bajaClientePorId(struct sClientes *aArray, int cantidad,int id)
 				}
 			}
 		}
-
-
 	}
-
 	return retorno;
 }
 
+int buscarClientePorCuit(struct sClientes *arrayClientes, int cantidadClientes, char *cuit)
+{
+	int retorno = -1;
+	int i;
+
+	if(arrayClientes != NULL && cantidadClientes > 0)
+	{
+		for(i=0;i<cantidadClientes;i++)
+		{
+			if(arrayClientes[i].status != 0)
+			{
+				if(strncmp(arrayClientes[i].cuit, cuit, 50) == 0)
+				{
+					retorno = i;
+					break;
+				}
+			}
+		}
+	}
+	return retorno;
+}
 

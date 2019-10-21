@@ -9,12 +9,22 @@ int clienteConMasPedidosPendientes(struct sPedidos *arrayPedidos, int cantidadPe
 
 int clienteConMasPedidosCompletados(struct sPedidos *arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes);
 
-int clienteConMasPedidos(struct sPedidos * arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes);
+int clienteConMasPedidos(struct sPedidos *arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes);
 
-int clienteQueRecicloMasKilos(struct sPedidos *arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes);
+int clienteQueRecicloMasKilos(struct sClientes *arrayClientes, int cantidadClientes, struct sPedidos *arrayPedidos, int cantidadPedidos);
 
-int clienteQueRecicloMenosKilos(struct sPedidos *arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes);
+int clientesQueReciclaronMasDe1000(struct sClientes *arrayClientes, int cantidadClientes, struct sPedidos *arrayPedidos, int cantidadPedidos);
 
-int clientesQueReciclaronMasDe1000(struct sPedidos *arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes);
+int imprimirPedidosProcesadosConPorcentaje(struct sPedidos *aArray,int cantidadPedidos, struct sClientes *arrayClientes, int cantidadClientes);
+
+int cantidadKilosPolipropilenoPromedio(struct sPedidos *arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes,int cantidadClientes);
+
+int clientesQueReciclaronMenosDe100(struct sClientes *arrayClientes, int cantidadClientes, struct sPedidos *arrayPedidos, int cantidadPedidos);
+
+int pedidosPendientesDeUnaLocalidad(struct sClientes *arrayClientes, int cantClientes, struct sPedidos *arrayPedidos, int cantPedidos, char *localidad);
+
+int clienteQueRecicloMenosKilos(struct sClientes *arrayClientes, int cantidadClientes, struct sPedidos *arrayPedidos, int cantidadPedidos);
+
+
 
 #endif

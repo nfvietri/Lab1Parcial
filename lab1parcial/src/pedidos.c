@@ -12,7 +12,6 @@ static int generarId(void)
 	return id;
 }
 
-
 int initLugarLibrePedidos(struct sPedidos *aArray, int cantidad){
 	int retorno = -1;
 	int i;
@@ -308,7 +307,7 @@ int cantidadPedidosPorCliente(struct sPedidos *aArray, int cantidad, int id)
 	return retorno;
 }
 
-int cantidadKilosPorCliente(struct sPedidos *aArray, int cantidad, int id)
+int cantidadKilosRecicladosPorCliente(struct sPedidos *aArray, int cantidad, int id)
 {
 	int retorno = -1;
 	int i;
@@ -321,10 +320,56 @@ int cantidadKilosPorCliente(struct sPedidos *aArray, int cantidad, int id)
 		{
 			if(aArray[i].idCliente == id && aArray[i].status != 0)
 			{
-				cantidadKilos = cantidadKilos + aArray[i].cantidadKilos;
+				if(strncmp(aArray[i].estado, "Completado", 50) == 0)
+				{
+					cantidadKilos = cantidadKilos + aArray[i].cantidadHDPE + aArray[i].cantidadLDPE + aArray[i].cantidadPP;
+				}
+
 			}
 		}
 	}
 	retorno = cantidadKilos;
 	return retorno;
+}
+
+int totalKilosReciclados(struct sPedidos *aArray, int cantidad)
+{
+	int retorno = -1;
+	int i;
+	int total = 0;
+
+	if(aArray != NULL && cantidad > 0)
+	{
+		for(i=0;i<cantidad;i++)
+		{
+			if(strncmp(aArray[i].estado, "Completado", 50) == 0)
+			{
+				total = total + aArray[i].cantidadHDPE + aArray[i].cantidadLDPE + aArray[i].cantidadPP;
+			}
+		}
+	}
+
+	retorno = total;
+
+	return retorno;
+}
+
+int totalKilosPolipropileno(struct sPedidos *aArray, int cantidad)
+{
+	int retorno = -1;
+		int i;
+		int total = 0;
+
+		if(aArray != NULL && cantidad > 0)
+		{
+			for(i=0;i<cantidad;i++)
+			{
+				if(strncmp(aArray[i].estado, "Completado", 50) == 0)
+				{
+					total = total + aArray[i].cantidadPP;
+				}
+			}
+		}
+		retorno = total;
+		return retorno;
 }

@@ -23,6 +23,8 @@ void test2(struct sPedidos p[], int cantidad);
 
 int main(void) {
 
+	setvbuf(stdout, NULL, _IONBF, 0);
+
 
 	struct sClientes aClientes[QTY_CLIENTES];
 	struct sClientes bCliente;
@@ -137,20 +139,18 @@ int main(void) {
 				clienteConMasPedidosPendientes(aPedidos,QTY_PEDIDOS,aClientes);
 				clienteConMasPedidosCompletados(aPedidos,QTY_PEDIDOS,aClientes);
 				clienteConMasPedidos(aPedidos,QTY_PEDIDOS,aClientes);
-				clienteQueRecicloMasKilos(aPedidos,QTY_PEDIDOS,aClientes);
-				clienteQueRecicloMenosKilos(aPedidos,QTY_PEDIDOS,aClientes);
-				clientesQueReciclaronMasDe1000(aPedidos,QTY_PEDIDOS,aClientes);
+				clienteQueRecicloMasKilos(aClientes,QTY_CLIENTES,aPedidos,QTY_PEDIDOS);
+				clienteQueRecicloMenosKilos(aClientes, QTY_CLIENTES, aPedidos, QTY_PEDIDOS);
+				clientesQueReciclaronMasDe1000(aClientes,QTY_CLIENTES,aPedidos,QTY_PEDIDOS);
+				clientesQueReciclaronMenosDe100(aClientes,QTY_CLIENTES,aPedidos,QTY_PEDIDOS);
+				imprimirPedidosProcesadosConPorcentaje(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES);
+				getString(bCliente.localidad,"Ingrese una localidad:\n","Error",3,20,3);
+				pedidosPendientesDeUnaLocalidad(aClientes,QTY_CLIENTES,aPedidos,QTY_PEDIDOS,bCliente.localidad);
+				cantidadKilosPolipropilenoPromedio(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES);
 				break;
 		}
 
 	} while (opcion != 20);
-
-
-	printf("CLIENTES\n");
-	imprimirArrayClientes(aClientes,QTY_CLIENTES);
-	printf("PEDIDOS\n");
-	imprimirArrayPedidos(aPedidos,QTY_PEDIDOS);
-
 
 	return EXIT_SUCCESS;
 }
@@ -177,7 +177,7 @@ void test(struct sClientes p[], int cantidad)
 
 void test2(struct sPedidos p[], int cantidad)
 {
-	int aIdCliente[]={3,1,2,3,4};
+	int aIdCliente[]={0,1,2,3,4};
 	int aKilos[]={100,200,300,2000,500};
 	struct sPedidos bPedido;
 	int i;

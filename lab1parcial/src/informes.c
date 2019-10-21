@@ -107,92 +107,212 @@ int clienteConMasPedidos(struct sPedidos *arrayPedidos, int cantidadPedidos, str
 	return retorno;
 }
 
-int clienteQueRecicloMasKilos(struct sPedidos *arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes)
+int clienteQueRecicloMasKilos(struct sClientes *arrayClientes, int cantidadClientes, struct sPedidos *arrayPedidos, int cantidadPedidos)
 {
 	int retorno = -1;
 	int i;
 	int maximo;
 	int idMaximo;
 
-	for(i=0;i<cantidadPedidos;i++)
+	if((arrayClientes != NULL && cantidadClientes > 0) && (arrayPedidos != NULL && cantidadPedidos > 0))
 	{
-		if(i==0)
+		retorno = 0;
+		for(i=0;i<cantidadClientes;i++)
 		{
-			maximo = cantidadKilosPorCliente(arrayPedidos,cantidadPedidos,arrayPedidos[i].idCliente);
-			idMaximo = arrayPedidos[i].idCliente;
-		} else {
-			if(cantidadKilosPorCliente(arrayPedidos,cantidadPedidos,arrayPedidos[i].idCliente) > maximo)
+			if(i==0)
 			{
-				maximo = cantidadKilosPorCliente(arrayPedidos,cantidadPedidos,arrayPedidos[i].idCliente);
-				idMaximo = arrayPedidos[i].idCliente;
+				maximo = cantidadKilosRecicladosPorCliente(arrayPedidos,cantidadPedidos,arrayClientes[i].idCliente);
+				idMaximo = arrayClientes[i].idCliente;
+			} else {
+				if(cantidadKilosRecicladosPorCliente(arrayPedidos,cantidadPedidos,arrayClientes[i].idCliente) > maximo)
+				{
+					maximo = cantidadKilosRecicladosPorCliente(arrayPedidos,cantidadPedidos,arrayClientes[i].idCliente);
+					idMaximo = arrayClientes[i].idCliente;
+				}
 			}
 		}
+		if(maximo == 0)
+		{
+			printf("d)No hay pedidos reciclados\n");
+		} else {
+			printf("d)Cliente que reciclo mas kilos: %s\n", arrayClientes[idMaximo].nombreEmpresa);
+		}
 	}
-
-	printf("d)Cliente que recicló más kilos: %s\n", arrayClientes[idMaximo].nombreEmpresa);
-	retorno = 0;
-
 	return retorno;
 }
 
-int clienteQueRecicloMenosKilos(struct sPedidos *arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes)
-{
-	int retorno = -1;
-	int i;
-	int minimo;
-	int idMinimo;
-
-	for(i=0;i<cantidadPedidos;i++)
-	{
-		if(i==0)
-		{
-			minimo = cantidadKilosPorCliente(arrayPedidos,cantidadPedidos,arrayPedidos[i].idCliente);
-			idMinimo = arrayPedidos[i].idCliente;
-		} else {
-			if(cantidadKilosPorCliente(arrayPedidos,cantidadPedidos,arrayPedidos[i].idCliente) < minimo)
-			{
-				minimo = cantidadKilosPorCliente(arrayPedidos,cantidadPedidos,arrayPedidos[i].idCliente);
-				idMinimo = arrayPedidos[i].idCliente;
-			}
-		}
-	}
-
-	printf("e)Cliente que recicló menos kilos: %s\n", arrayClientes[idMinimo].nombreEmpresa);
-	retorno = 0;
-
-	return retorno;
-}
-
-int clientesQueReciclaronMasDe1000(struct sPedidos *arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes)
+int clientesQueReciclaronMasDe1000(struct sClientes *arrayClientes, int cantidadClientes, struct sPedidos *arrayPedidos, int cantidadPedidos)
 {
 	int retorno = -1;
 	int i;
 	int cantidad = 0;
 
-	if((arrayPedidos != NULL && cantidadPedidos > 0) && arrayClientes != NULL)
+	if((arrayClientes != NULL && cantidadClientes > 0) && (arrayPedidos != NULL && cantidadPedidos > 0))
 	{
 		retorno = 0;
-		for(i=0;i<cantidadPedidos;i++)
+		for(i=0;i<cantidadClientes;i++)
 		{
-			if(cantidadKilosPorCliente(arrayPedidos,cantidadPedidos,arrayPedidos[i].idCliente) > 1000)
+			if(arrayClientes[i].status != 0)
 			{
-				cantidad++;
+				if(cantidadKilosRecicladosPorCliente(arrayPedidos, cantidadPedidos, arrayClientes[i].idCliente) > 1000)
+				{
+					cantidad++;
+				}
 			}
-
 		}
-		printf("f)Cantidad que reciclaron más de 1000 kilos: %d\n", cantidad);
+		printf("f)Clientes que reciclaron m�s de 1000: %d\n", cantidad);
 	}
 	return retorno;
 }
 
-int cantidadPedidosPorLocalidad(struct sPedidos *arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes, char *localidad)
+int imprimirPedidosProcesadosConPorcentaje(struct sPedidos *aArray,int cantidadPedidos, struct sClientes *arrayClientes, int cantidadClientes)
 {
 	int retorno = -1;
 	int i;
+	int kilosTotales;
+	float porcentajeReciclado;
 
+	kilosTotales = totalKilosReciclados(aArray,cantidadPedidos);
 
+	if((aArray != NULL && cantidadPedidos > 0) && (arrayClientes != NULL && cantidadClientes > 0))
+		{
+			for(i=0;i<cantidadPedidos;i++)
+			{
+				if(strncmp(aArray[i].estado, "Completado", 50) == 0)
+				{
+					porcentajeReciclado = (float) (aArray[i].cantidadHDPE + aArray[i].cantidadLDPE + aArray[i].cantidadPP) / kilosTotales;
+					retorno = 0;
+					printf("h)");
+					printf("Id: %d // Cuit: %s // Porcentaje reciclado: %f\n",
+							aArray[i].idPedido,
+							arrayClientes[aArray[i].idCliente].cuit,
+							porcentajeReciclado);
+				}
+			}
+		}
+	if(retorno != 0)
+	{
+		printf("h)No hay pedidos procesados\n");
+	}
 
 	return retorno;
+}
 
+int cantidadKilosPolipropilenoPromedio(struct sPedidos *arrayPedidos, int cantidadPedidos, struct sClientes *arrayClientes,int cantidadClientes)
+{
+	int retorno = -1;
+	int i;
+	int clientesActivos = 0;
+	int totalKilos;
+	float promedio;
 
+	totalKilos = totalKilosPolipropileno(arrayPedidos,cantidadPedidos);
+
+	if((arrayPedidos != NULL && cantidadPedidos > 0) && (arrayClientes != NULL && cantidadClientes > 0))
+	{
+		retorno = 0;
+		for(i=0;i<cantidadClientes;i++)
+		{
+			if(arrayClientes[i].status != 0)
+			{
+				clientesActivos++;
+			}
+		}
+		promedio = (float) totalKilos / (float) clientesActivos;
+	}
+	printf("j)Total kilos: %d // clientes activos: %d // promedio: %f\n",totalKilos,clientesActivos, promedio);
+
+	return retorno;
+}
+
+int clientesQueReciclaronMenosDe100(struct sClientes *arrayClientes, int cantidadClientes, struct sPedidos *arrayPedidos, int cantidadPedidos)
+{
+	int retorno = -1;
+	int i;
+	int contador = 0;
+	int cantidadKilos;
+
+	if((arrayClientes != NULL && cantidadClientes > 0) && (arrayPedidos != NULL && cantidadPedidos > 0))
+	{
+		retorno = 0;
+		for(i=0;i<cantidadClientes;i++)
+		{
+			if(arrayClientes[i].status != 0)
+			{
+				cantidadKilos = cantidadKilosRecicladosPorCliente(arrayPedidos,cantidadPedidos,arrayClientes[i].idCliente);
+
+				if(cantidadKilos > 0 && cantidadKilos < 100)
+				{
+					contador++;
+				}
+			}
+
+		}
+		printf("g)Cantidad de clientes que reciclaron menos de 100: %d\n",contador);
+	}
+	return retorno;
+}
+
+int pedidosPendientesDeUnaLocalidad(struct sClientes *arrayClientes, int cantClientes, struct sPedidos *arrayPedidos, int cantPedidos, char *localidad)
+{
+	int retorno = -1;
+	int i;
+	int contador = 0;
+
+	if((arrayClientes != NULL && cantClientes > 0) && (arrayPedidos != NULL && cantPedidos > 0))
+	{
+		retorno = 0;
+		for(i=0;i<cantClientes;i++)
+		{
+			if(strncmp(arrayClientes[i].localidad, localidad, 50) == 0)
+			{
+				contador = contador + cantidadPedidosPendientes(arrayPedidos,cantPedidos,arrayClientes[i].idCliente);
+			}
+		}
+
+		printf("Cantidad de pedidos pendientes en %s: %d\n",localidad,contador);
+	}
+
+	return retorno;
+}
+
+int clienteQueRecicloMenosKilos(struct sClientes *arrayClientes, int cantidadClientes, struct sPedidos *arrayPedidos, int cantidadPedidos)
+{
+	int retorno = -1;
+	int i;
+	int flag = 1;
+	int cantKilos;
+	int minimo = 0;
+	int idMinimo;
+
+	if((arrayClientes != NULL && cantidadClientes > 0) && (arrayPedidos != NULL && cantidadPedidos > 0))
+	{
+		retorno = 0;
+		for(i=0;i<cantidadClientes;i++)
+		{
+			if(arrayClientes[i].status != 0)
+			{
+				cantKilos = cantidadKilosRecicladosPorCliente(arrayPedidos,QTY_PEDIDOS,arrayClientes[i].idCliente);
+
+				if(cantKilos > 0 && flag == 1)
+				{
+					flag = 0;
+					minimo = cantKilos;
+					idMinimo = arrayClientes[i].idCliente;
+				}
+				if(flag == 0 && cantKilos < minimo && cantKilos != 0)
+				{
+					minimo = cantKilos;
+					idMinimo = arrayClientes[i].idCliente;
+				}
+			}
+		}
+		if(minimo == 0)
+		{
+			printf("e)No hay pedidos reciclados\n");
+		} else {
+			printf("e)Cliente que reciclo menos: %s\n",arrayClientes[idMinimo].nombreEmpresa);
+		}
+	}
+	return retorno;
 }
