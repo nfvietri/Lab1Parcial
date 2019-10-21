@@ -316,3 +316,39 @@ int clienteQueRecicloMenosKilos(struct sClientes *arrayClientes, int cantidadCli
 	}
 	return retorno;
 }
+
+int cantidadDeKilosDeUnTipoPorCuit(struct sClientes *arrayClientes, int cantClientes, struct sPedidos *arrayPedidos,int cantPedidos, char *cuit, char *plastico)
+{
+	int retorno = -1;
+	int i;
+	int idCliente;
+	int cantKilos = 0;
+
+	if((arrayClientes != NULL && cantClientes > 0) && (arrayPedidos != NULL && cantPedidos > 0))
+	{
+		retorno = 0;
+		idCliente = buscarClientePorCuit(arrayClientes,cantClientes,cuit);
+
+		for(i=0;i<cantPedidos;i++)
+		{
+			if(arrayPedidos[i].idCliente == idCliente)
+			{
+				if(strncmp(plastico, "PP", 50) == 0)
+				{
+					cantKilos = arrayPedidos[i].cantidadPP;
+					break;
+				} else if(strncmp(plastico, "HDPE", 50) == 0)
+				{
+					cantKilos = arrayPedidos[i].cantidadHDPE;
+					break;
+				} else if ((strncmp(plastico, "LDPE", 50) == 0))
+				{
+					cantKilos = arrayPedidos[i].cantidadLDPE;
+				}
+
+			}
+		}
+		printf("K)Cantidad de kilos del plastico ingresado: %d\n",cantKilos);
+	}
+	return retorno;
+}

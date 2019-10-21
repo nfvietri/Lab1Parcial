@@ -25,6 +25,6 @@ int pedidosPendientesDeUnaLocalidad(struct sClientes *arrayClientes, int cantCli
 
 int clienteQueRecicloMenosKilos(struct sClientes *arrayClientes, int cantidadClientes, struct sPedidos *arrayPedidos, int cantidadPedidos);
 
-
+int cantidadDeKilosDeUnTipoPorCuit(struct sClientes *arrayClientes, int cantClientes, struct sPedidos *arrayPedidos,int cantPedidos, char *cuit, char *plastico);
 
 #endif

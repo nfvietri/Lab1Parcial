@@ -32,6 +32,7 @@ int main(void) {
 	struct sPedidos bPedido;
 	int opcion;
 	int respuesta;
+	char plastico[10];
 
 	initLugarLibreClientes(aClientes,QTY_CLIENTES);
 	initLugarLibrePedidos(aPedidos, QTY_PEDIDOS);
@@ -147,6 +148,15 @@ int main(void) {
 				getString(bCliente.localidad,"Ingrese una localidad:\n","Error",3,20,3);
 				pedidosPendientesDeUnaLocalidad(aClientes,QTY_CLIENTES,aPedidos,QTY_PEDIDOS,bCliente.localidad);
 				cantidadKilosPolipropilenoPromedio(aPedidos,QTY_PEDIDOS,aClientes,QTY_CLIENTES);
+				getString(bCliente.cuit,"Ingrese el cuit:\n","Error",3,30,3);
+				if(buscarClientePorCuit(aClientes,QTY_CLIENTES,bCliente.cuit) != -1)
+				{
+					getString(plastico,"Ingrese el tipo de plastico: (HDPE, LDPE O PP)\n","Error",1,10,3);
+					cantidadDeKilosDeUnTipoPorCuit(aClientes,QTY_CLIENTES,aPedidos,QTY_PEDIDOS,bCliente.cuit,plastico);
+				} else {
+					printf("No se encontraron registros con ese cuit\n");
+				}
+
 				break;
 		}
 
