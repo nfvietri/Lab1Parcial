@@ -22,7 +22,7 @@ int getString(	char *pResultado,
 		do
 			{
 				printf("%s",pMensaje);
-				fflush(stdin);
+				__fpurge(stdin);
 				fgets(buffer,sizeof(buffer),stdin);
 				buffer[strlen(buffer)-1] = '\0';
 				if(strlen(buffer)>=minimo && strlen(buffer) <= maximo)
@@ -58,7 +58,7 @@ int getInt(	int *resultado,
 		do
 		{
 			printf("%s",mensaje);
-			fflush(stdin); // fflush
+			__fpurge(stdin); // fflush
 			if(scanf("%d",&buffer)==1)
 			{
 				if(buffer >= minimo && buffer <= maximo)
@@ -94,7 +94,7 @@ int getFloat(float *pResultado,
 		do
 		{
 			printf("%s",pMensaje);
-			fflush(stdin);
+			__fpurge(stdin);
 			if(scanf("%f",&buffer)==1)
 			{
 				if(buffer >= minimo && buffer <= maximo)

@@ -23,7 +23,7 @@ void test2(struct sPedidos p[], int cantidad);
 
 int main(void) {
 
-	setvbuf(stdout, NULL, _IONBF, 0);
+
 
 
 	struct sClientes aClientes[QTY_CLIENTES];
